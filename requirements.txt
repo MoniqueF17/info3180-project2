@@ -1,15 +1,22 @@
 # ----------------------
 # Flask
 # ----------------------
-flask
+Flask
 Flask-WTF
 Flask-SQLAlchemy
 Flask-Migrate
 Flask-Login
-flask-bcrypt
+Flask-bcrypt
 requests
-beautifulsoup4
 psycopg2
+pyjwt
+#-------------------------
+click==6.7
+itsdangerous==0.24
+Jinja2==2.10
+MarkupSafe==1.0
+Werkzeug==0.14.1
+WTForms==2.2.1
 
 # ----------------------
 # Production Server

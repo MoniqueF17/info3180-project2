@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block css %} 
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css') }}"/>
+{% endblock%}
+{% block main %}
+
+<div class="profile">    
+    <div class="profile-image">
+        {% if profile.pic %}
+            <img src="{{ url_for('static',filename="uploads/"+profile.pic)}}">
+        {% else %}
+            <img src="{{ url_for('static',filename="uploads/default-profile.jpg") }}">
+        {% endif %}
+    </div>
+
+    <img src="{{ url_for('static', filename='uploads/') }}{{ profile.image }}" alt="{{ profile.image }}" id="ProfilePic">
+    <div class="biobox">
+        <div id="Name"><b>{{ profile.first_name ~ " " ~ profile.last_name }}</b></div>
+        <div id="Location"><b></b>{{ profile.location }}</div>
+        <div id="Date" class="bottomborder"> {{ profile.datecreated|datetimeformat }}</div>
+        <div id="AboutMe">{{ profile.bio }}</div>
+    </div>
+    
+    <div class="buttons">
+        <button id="follow-button">Follow</button>
+    </div>
+</div>
+{% endblock %}

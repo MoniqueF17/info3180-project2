@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="flex-container">
+    <div id="img">
+        <img src="{{ url_for('static',filename="img_forest.jpg") }}">
+    </div>
+    
+    <div id="word">
+        <div>
+           <h1 class="page-header"><img src="{{ url_for('static',filename="home_logo.png") }}" height="40px" width="200px"></h1> 
+        </div>
+    
+        <p class="message">Share photos of your favourite moments with friends, family and the world.</p></br></br></br>
+        
+        <div class="button">
+            <button id="register-button"><a href="{{ url_for('register') }}" style="text-decoration:none;">Register</a></button>
+            <button id="login-button"><a href="{{ url_for('login') }}" style="text-decoration:none;">Login</a></button>
+        </div>
+    </div>
+</div>
+{% endblock %}

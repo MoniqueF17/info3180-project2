@@ -1,4 +1,4 @@
-INFO3180 Project 3
+INFO3180 Project 2
 
 Group Memebers:
 Dukie Ebanks

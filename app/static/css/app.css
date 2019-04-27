@@ -1,0 +1,110 @@
+.nav-tabs {
+    margin-bottom: 15px;
+}
+
+body, html {
+  margin: 0;
+  padding-top: 25px;
+  height:100%;
+  background-color: #f4efe7;
+}
+
+#ImagesDiv {
+    text-align: center;
+    height:300px;
+    overflow-y: scroll; 
+    background-color: whitesmoke;
+    box-shadow: 0 0 20px 7px #ccc;
+}
+
+a{
+    cursor: pointer;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+}
+
+.message{
+  font-weight:bold;
+  font-size:16px;
+}
+
+.button{
+  position: inherit;
+  /*top: 250px;
+  left: 180px;*/
+  cursor: hand;
+}
+
+.register-form{
+  margin-left:100px;
+}
+
+#register-button {
+  font-family: "Helvetica";
+  font-size: 10pt;
+  background-color: #92d048;
+  border-radius: 5px;
+  width: 150px;
+  height: 30px;
+  border:none;
+}
+
+.register-panel{
+  padding-top:20px;
+  padding-bottom:20px;
+  padding-left:0px;
+  padding-right:0;
+  margin:auto;
+}
+
+.login-form{
+  margin-left:100px;
+}
+
+#login-button {
+  font-family: "Helvetica";
+  font-size: 10pt;
+  background-color: #5a90dc;
+  border-radius: 5px;
+  width: 150px;
+  height: 30px;
+  border:none;
+}
+
+.login-panel{
+  padding-top:20px;
+  width:70%;
+  margin:auto;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.flex-container > #img {
+  margin: 10px;
+  text-align: center;
+  border: 1px solid #d5d3d0;
+  box-shadow: 3px 3px 5px #ccc;
+}
+
+.flex-container > #word {
+  background-color: #ffffff;
+  margin: 5px;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #d5d3d0;
+  box-shadow: 3px 3px 5px #ccc;
+  height: 400px;
+}
+
+nav > div > li {
+  color: white;
+}
