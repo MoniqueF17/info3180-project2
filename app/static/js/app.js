@@ -4,62 +4,87 @@
 /*global fetch*/
 
 Vue.component('app-header', {
-    template: `
-      <nav class="navbar navbar-inverse navbar-fixed-top navbar-light" style="background-color: #5a90dc;">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{{ url_for('home') }}"><img src="{{ url_for('static',filename="header_logo.png") }}" height="30px" width="110px"></a>
-        </div>
-        
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            {% if not current_user.is_authenticated %}
-                <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
-            {% else %}
-                <li class="active"><a href="{{ url_for('logout') }}">Logout</a></li>
-            {% endif %}
-                
-              <li {%- if request.path == "/addItem" %} class="active"{% endif %}>
-              <a href="{{ url_for('home') }}">Explore</a>
+  template: `
+    <nav class="navbar navbar-inverse navbar-fixed-top navbar-light" style="background-color: #5a90dc;">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img src="/static/uploads/header_logo.png" height="30px" width="110px"></a>
+      </div>
+      
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          {% if not current_user.is_authenticated %}
+              <li class="active">
+                <router-link class="nav-link"to="/">Home <span class="sr-only">(current)</span></router-link>
               </li>
-              <li {%- if request.path == "/profile/" %} class="active"{% endif %}>
-              <a href="{{ url_for('profile') }}">My Profile</a>
+          {% else %}
+              <li class="active">
+                <router-link class="nav-link"to="/logout">Logout<span class="sr-only">(current)</span></router-link>
               </li>
+          {% endif %}
               
-              <!--SHOULD BE MOVE-->
-              <li {%- if request.path == "/posts/new" %} class="active"{% endif %}>
-              <a href="{{ url_for('addPost') }}">New Post</a>
-              </li>
+            <li {%- if request.path == "/addItem" %} class="active"{% endif %}>
+            <a href="{{ url_for('') }}">Explore</a>
+            </li>
+            <li {%- if request.path == "/profile/" %} class="active"{% endif %}>
+            <a href="{{ url_for('') }}">My Profile</a>
+            </li>
             
-              <li class="active"><a href="{{ url_for('about') }}">About</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+            <!--SHOULD BE MOVE-->
+            <li {%- if request.path == "/posts/new" %} class="active"{% endif %}>
+            <a href="{{ url_for('') }}">New Post</a>
+            </li>
+          
+            <li class="active"><a href="{{ url_for('') }}">About</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
     </div>
 </nav>
-    `,
-    data: function() {}
+  `
 });
 
 
 Vue.component('app-footer', {
     template: `
-        <footer>
-            <div class="container">
-                <p>Copyright &copy {{ year }} Flask Inc.</p>
-            </div>
-        </footer>
-    `,
-    data: function() {
-        return {
-            year: (new Date).getFullYear()
-        };
-    }
+    <footer>
+      <div class="container">
+          <p>Copyright &copy; Flask Inc.</p>
+      </div>
+    </footer>
+    `
+});
+
+
+const Home = Vue.component('home', {
+  template: `
+  <div class="flex-container">
+    <div id="img">
+      <img src="/static/uploads/img_forest.jpg">
+    </div>
+    
+    <div id="word">
+      <div>
+        <h1 class="page-header"><img src="/static/uploads/home_logo.png"" height="40px" width="200px"></h1> 
+      </div>
+  
+      <p class="message">Share photos of your favourite moments with friends, family and the world.</p></br></br></br>
+        
+      <div class="button">
+        <router-link class="btn" id="register-button" to="/register" style="text-decoration:none;">Register</router-link>
+        <router-link class="btn" id="login-button" to="/register" style="text-decoration:none;">Register</router-link>
+      </div>
+    </div>
+  </div>
+  `,
+  data: function() {
+    return {}
+  }
 });
 
 
@@ -137,33 +162,7 @@ const Explore = Vue.component('explore', {
 });
 
 
-const Home = Vue.component('home', {
-  template: `
-    <div class="flex-container">
-    <div id="img">
-        <img src="{{ url_for('static',filename="img_forest.jpg") }}">
-    </div>
-    
-    <div id="word">
-        <div>
-           <h1 class="page-header"><img src="{{ url_for('static',filename="home_logo.png") }}" height="40px" width="200px"></h1> 
-        </div>
-    
-        <p class="message">Share photos of your favourite moments with friends, family and the world.</p></br></br></br>
-        
-        <div class="button">
-            <button id="register-button"><a href="{{ url_for('register') }}" style="text-decoration:none;">Register</a></button>
-            <button id="login-button"><a href="{{ url_for('login') }}" style="text-decoration:none;">Login</a></button>
-        </div>
-    </div>
-</div>
-  `,
-  data: function() {
-    return {}
-  }
-});
-
-
+// Define Routes
 const router = new VueRouter({
   mode: 'history',
   routes: [
@@ -175,6 +174,7 @@ const router = new VueRouter({
 });
 
 
+// Instantiate our main Vue Instance
 let app = new Vue({
     el: '#app',
     router

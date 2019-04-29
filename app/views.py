@@ -5,7 +5,7 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
 from app import app, db, login_manager
-from flask import render_template, request, redirect, url_for, flash, jsonify
+from flask import render_template, request, redirect, url_for, flash, jsonify, g
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.utils import secure_filename
 from app.forms import CreateUserForm, LoginForm, CreatPostForm
@@ -13,11 +13,15 @@ from app.models import Posts, UserProfile, Likes, Follows
 #from image_getter import get_images
 import random, os, datetime, requests #urlparse
 import jwt
+from functools import wraps
 
 ###
 # Routing for your application.
 ###
 
+# Create a JWT @requires_auth decorator
+# This decorator can be used to denote that a specific route should check
+# for a valid JWT token before displaying the contents of that route.
 def requires_auth(f):
   @wraps(f)
   def decorated(*args, **kwargs):
@@ -36,28 +40,24 @@ def requires_auth(f):
 
     token = parts[1]
     try:
-         payload = jwt.decode(token, token_key)
-         get_user = Users.query.filter_by(id=payload['user_id']).first()
+         payload = jwt.decode(token,app.config['SECRET_KEY'])
 
     except jwt.ExpiredSignature:
         return jsonify({'code': 'token_expired', 'description': 'token is expired'}), 401
     except jwt.DecodeError:
         return jsonify({'code': 'token_invalid_signature', 'description': 'Token signature is invalid'}), 401
 
-    g.current_user = user = payload['user_id']
+    g.current_user = user = payload
     return f(*args, **kwargs)
-    
+
   return decorated
 
+
+@app.route('/', defaults={'path': ''})
 @app.route('/')
 def index():
     """Render website's initial page and let VueJS take over."""
     return render_template('index.html')
-
-@app.route('/')
-def home():
-    """Render website's home page."""
-    return render_template('home.html')
 
 @app.route('/about/')
 def about():
@@ -101,7 +101,7 @@ def register():
             else:
                 form.imgfile.errors.append("Invalid image file uploaded")
 
-    return render_template('register.html',form=form)
+    # return render_template('register.html',form=form)
     
 
 @app.route('/api/auth/login', methods=["GET", "POST"])
